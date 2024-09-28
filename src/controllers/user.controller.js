@@ -157,7 +157,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     req.user._id,
     {
       $set: {
-        refreshToken: undefined,
+        refreshToken: null,
       },
     },
     {
@@ -276,7 +276,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 });
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
-  const avatarLocalpath = (req.file?.path = req.file?.path);
+  const avatarLocalpath = req.file?.path;
   if (!avatarLocalpath) throw new ApiError(400, "Please provide avatar");
 
   const avatar = await uploadOnCloudinary(avatarLocalpath);
@@ -300,7 +300,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Avatar updated successfully"));
 });
 const updateUserCoverimage = asyncHandler(async (req, res) => {
-  const coverLocalpath = (req.file?.path = req.file?.path);
+  const coverLocalpath = req.file?.path ;
   if (!coverLocalpath) throw new ApiError(400, "Please provide cover image");
 
   const coverImage = await uploadOnCloudinary(coverLocalpath);
